@@ -1,4 +1,4 @@
-package com.madaba.supervisorapp
+package com.madaba.supervisorapp.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,15 +11,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-/**
- * ViewModel for the main supervisor screen.
- *
- * This ViewModel is responsible for managing the UI-related data for the main screen of the supervisor app.
- * It fetches and holds the list of workers, making it available to the UI as a [StateFlow].
- * The data is refreshed from the remote data source (Firestore) when the ViewModel is initialized.
- *
- * @property repository The repository for accessing attendance and worker data. Injected by Hilt.
- */
 @HiltViewModel
 class SupervisorMainViewModel @Inject constructor(
     private val repository: AttendanceRepository

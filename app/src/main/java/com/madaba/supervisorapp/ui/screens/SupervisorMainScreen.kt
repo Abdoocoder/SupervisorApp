@@ -1,4 +1,3 @@
-// FILE: app/src/main/java/com/madaba/supervisorapp/ui/screens/SupervisorMainScreen.kt
 package com.madaba.supervisorapp.ui.screens
 
 import androidx.compose.foundation.clickable
@@ -11,7 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Sync
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,6 +28,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.madaba.supervisorapp.data.models.Worker
 import com.madaba.supervisorapp.ui.viewmodels.SupervisorMainViewModel
 
+/**
+ * A Composable function that represents the main screen for a supervisor.
+ *
+ * This screen displays a list of workers under the supervisor's purview. It provides
+ * a top app bar with actions to view the offline queue and to trigger a manual data sync.
+ * The main content area shows a list of workers, and each worker item is clickable,
+ * leading to a detail screen. If no workers are available, a loading/empty state message is shown.
+ *
+ * @param viewModel The [SupervisorMainViewModel] instance for this screen, provided by Hilt. It manages the screen's state, such as the list of workers.
+ * @param onWorkerClicked A lambda function to be invoked when a worker item in the list is clicked. It passes the worker's ID as a [String].
+ * @param onSyncClicked A lambda function to be invoked when the sync icon in the top app bar is clicked.
+ * @param onOfflineQueueClicked A lambda function to be invoked when the offline queue icon (DateRange) in the top app bar is clicked.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SupervisorMainScreen(
@@ -48,7 +60,7 @@ fun SupervisorMainScreen(
                         Icon(Icons.Default.DateRange, contentDescription = "Offline Queue")
                     }
                     IconButton(onClick = onSyncClicked) {
-                        Icon(Icons.Default.Sync, contentDescription = "Sync Now")
+                        Icon(Icons.Default.Refresh, contentDescription = "Sync Now")
                     }
                 }
             )

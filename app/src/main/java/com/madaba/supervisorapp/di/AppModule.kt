@@ -2,7 +2,6 @@
 package com.madaba.supervisorapp.di
 
 import android.content.Context
-import androidx.privacysandbox.tools.core.generator.build
 import androidx.room.Room
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
