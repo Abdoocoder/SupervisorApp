@@ -5,6 +5,23 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+
+    <!-- الألوان الأساسية للهوية البصرية لبلدية مادبا -->
+
+    <!-- اللون الأساسي (Primary Color Palette) -->
+    <color name="madaba_primary">#0067A5</color>
+    <color name="madaba_primary_dark">#004873</color>
+    <color name="madaba_primary_light">#D4EEFF</color>
+
+    <!-- لون التمييز والنجاح (Accent & Status) -->
+    <color name="madaba_accent_gold">#E8B90A</color>
+    <color name="madaba_success_green">#4CAF50</color>
+    <color name="madaba_error_red">#D32F2F</color>
+
+    <!-- ألوان الخلفية والنصوص -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="light_surface">#F5F5F5</color>
+    <color name="text_primary">#1C1C1C</color>
 </resources>
