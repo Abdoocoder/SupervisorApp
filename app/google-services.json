@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "60959300323",
-    "project_id": "madabaworkerattendancesystem",
-    "storage_bucket": "madabaworkerattendancesystem.firebasestorage.app"
+    "project_number": "200068223832",
+    "project_id": "madaba-supervisor-app",
+    "storage_bucket": "madaba-supervisor-app.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:60959300323:android:f7a61f633e987bd51b43d6",
+        "mobilesdk_app_id": "1:200068223832:android:7e00c145514e26a6820b2d",
         "android_client_info": {
-          "package_name": "com.supervisor.attendance"
+          "package_name": "com.madaba.supervisorapp"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "60959300323-nrdhnvdi4jtqbd6as8rr4mdjdqfqc9ha.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA5ro20hfxX2QGmw9wbAOFuQKb6v5ZBcwM"
+          "current_key": "AIzaSyDjQSNih52BuOzdA6fvDdr631vtAogzndM"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "60959300323-nrdhnvdi4jtqbd6as8rr4mdjdqfqc9ha.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

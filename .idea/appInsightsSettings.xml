@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.madaba.supervisorapp" />
+                  <option name="mobileSdkAppId" value="1:200068223832:android:7e00c145514e26a6820b2d" />
+                  <option name="projectId" value="madaba-supervisor-app" />
+                  <option name="projectNumber" value="200068223832" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
