@@ -1,4 +1,19 @@
-// FILE: app/src/main/java/com/madaba/supervisorapp/data/source/local/AttendanceEntity.kt
+/**
+ * Represents a single attendance record for a worker in the local database.
+ *
+ * @property localId The unique identifier for the attendance record in the local database.
+ * @property workerId The ID of the worker this attendance record belongs to.
+ * @property date The date of the attendance record, stored as a Unix timestamp.
+ * @property status The status of the attendance (e.g., "Present", "Absent", "On Leave").
+ * @property hoursWorked The number of hours the worker worked on this date.
+ * @property overtimeHours The number of overtime hours the worker worked.
+ * @property notes Any additional notes or comments about this attendance record.
+ * @property photoUrl The URL of a photo associated with this attendance record, if any.
+ * @property synced A flag indicating whether this record has been synced with a remote server.
+ * @property createdAt The timestamp when this record was created.
+ * @property updatedAt The timestamp when this record was last updated.
+ * @property editedBy The identifier of the user who last edited this record.
+ */
 package com.madaba.supervisorapp.data.source.local
 
 import androidx.room.Entity
