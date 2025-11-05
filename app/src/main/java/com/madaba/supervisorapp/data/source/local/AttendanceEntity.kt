@@ -1,24 +1,25 @@
-/**
- * Represents a single attendance record for a worker in the local database.
- *
- * @property localId The unique identifier for the attendance record in the local database.
- * @property workerId The ID of the worker this attendance record belongs to.
- * @property date The date of the attendance record, stored as a Unix timestamp.
- * @property status The status of the attendance (e.g., "Present", "Absent", "On Leave").
- * @property hoursWorked The number of hours the worker worked on this date.
- * @property overtimeHours The number of overtime hours the worker worked.
- * @property notes Any additional notes or comments about this attendance record.
- * @property photoUrl The URL of a photo associated with this attendance record, if any.
- * @property synced A flag indicating whether this record has been synced with a remote server.
- * @property createdAt The timestamp when this record was created.
- * @property updatedAt The timestamp when this record was last updated.
- * @property editedBy The identifier of the user who last edited this record.
- */
 package com.madaba.supervisorapp.data.source.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * Represents a single attendance record for a worker in the local database.
+ * This class is used as a Room entity to store attendance data on the device.
+ *
+ * @property localId The unique, auto-generated primary key for the attendance record in the local database.
+ * @property workerId The identifier for the worker this attendance record belongs to.
+ * @property date The date of the attendance, stored as a Unix timestamp (milliseconds).
+ * @property status The attendance status for the worker on the given date (e.g., "Present", "Absent").
+ * @property hoursWorked The number of regular hours worked by the employee.
+ * @property overtimeHours The number of overtime hours worked.
+ * @property notes Optional text containing any additional notes or comments about the attendance.
+ * @property photoUrl An optional URL or local path to a photo associated with this record.
+ * @property synced A boolean flag indicating whether this record has been successfully synchronized with the remote server. Defaults to `false`.
+ * @property createdAt The timestamp (in milliseconds) when this record was created locally.
+ * @property updatedAt The timestamp (in milliseconds) when this record was last modified.
+ * @property editedBy The identifier of the user (e.g., supervisor) who created or last edited this record.
+ */
 @Entity(tableName = "attendance")
 data class AttendanceEntity(
     @PrimaryKey(autoGenerate = true)
