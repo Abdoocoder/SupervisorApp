@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -12,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.madaba.supervisorapp"
-        minSdk = 21
+    minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
