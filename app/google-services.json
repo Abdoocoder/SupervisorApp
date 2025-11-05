@@ -12,7 +12,12 @@
           "package_name": "com.madaba.supervisorapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "200068223832-i3oqlu9onoavcusqcgbhmf2na6kvifsm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDjQSNih52BuOzdA6fvDdr631vtAogzndM"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "200068223832-i3oqlu9onoavcusqcgbhmf2na6kvifsm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
