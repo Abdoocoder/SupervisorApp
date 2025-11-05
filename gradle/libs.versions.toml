@@ -2,43 +2,42 @@
 # 📘 Version Catalog for SupervisorApp (Kotlin + Compose + Hilt + Room)
 # متوافق مع: AGP 8.2.2 و Kotlin 1.9.22 و Compose 1.5.x
 ##############################################################
-
 [versions]
-# Android & Kotlin
-agp = "8.2.2"
-kotlin = "1.9.22"
+# Android & Kotlin (محدّث للتوافق)
+agp = "8.6.1"
+kotlin = "2.0.21"
 
 # AndroidX Core
-coreKtx = "1.10.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.7.2"
+coreKtx = "1.13.1"
+lifecycleRuntimeKtx = "2.8.4"
+activityCompose = "1.9.2"
 
 # Jetpack Compose
-composeBom = "2023.08.00"
-navigationCompose = "2.7.0"
+composeBom = "2024.09.02"
+navigationCompose = "2.8.3"
 
 # Hilt (Dependency Injection)
-hilt = "2.50"
-hiltNavigationCompose = "1.0.0"
+hilt = "2.52"
+hiltNavigationCompose = "1.2.0"
 
 # Room (Local Database)
-room = "2.5.2"
+room = "2.6.1"
 
 # WorkManager
-workManager = "2.8.1"
+workManager = "2.9.1"
 
 # Networking & Images
-retrofit = "2.9.0"
-converterGson = "2.9.0"
-coil = "2.4.0"
+retrofit = "2.11.0"
+converterGson = "2.11.0"
+coil = "2.7.0"
 
 # Firebase
-firebaseBom = "32.2.0"
+firebaseBom = "33.5.1"
 
 # Testing
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 
 ##############################################################
 # 📚 Libraries
@@ -99,4 +98,4 @@ androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.25" }
