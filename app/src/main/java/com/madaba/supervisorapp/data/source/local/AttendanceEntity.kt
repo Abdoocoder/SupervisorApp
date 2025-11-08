@@ -11,8 +11,9 @@ import androidx.room.PrimaryKey
  * @property workerId The identifier for the worker this attendance record belongs to.
  * @property date The date of the attendance, stored as a Unix timestamp (milliseconds).
  * @property status The attendance status for the worker on the given date (e.g., "Present", "Absent").
- * @property hoursWorked The number of regular hours worked by the employee.
- * @property overtimeHours The number of overtime hours worked.
+ * @property regularDays The number of regular working days.
+ * @property overtimeDays The number of overtime days worked.
+ * @property overtimeType Type of overtime: "normal" (half day) or "holiday" (full day)
  * @property notes Optional text containing any additional notes or comments about the attendance.
  * @property photoUrl An optional URL or local path to a photo associated with this record.
  * @property synced A boolean flag indicating whether this record has been successfully synchronized with the remote server. Defaults to `false`.
@@ -27,8 +28,9 @@ data class AttendanceEntity(
     val workerId: String,
     val date: Long, // Store as timestamp
     val status: String,
-    val hoursWorked: Int,
-    val overtimeHours: Int,
+    val regularDays: Int = 0,
+    val overtimeDays: Int = 0,
+    val overtimeType: String = "normal", // "normal" or "holiday"
     val notes: String?,
     val photoUrl: String?,
     var synced: Boolean = false,

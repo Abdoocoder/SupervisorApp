@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.madaba.supervisorapp.data.models.UserRole
 import com.madaba.supervisorapp.data.models.Worker
 import com.madaba.supervisorapp.ui.viewmodels.SupervisorMainViewModel
 
@@ -49,10 +51,15 @@ fun SupervisorMainScreen(
     viewModel: SupervisorMainViewModel = hiltViewModel(),
     onWorkerClicked: (String) -> Unit,
     onSyncClicked: () -> Unit,
-    onOfflineQueueClicked: () -> Unit
+    onOfflineQueueClicked: () -> Unit,
+    onManageWorkersClicked: () -> Unit = {},
+    onManageSupervisorsClicked: () -> Unit = {},
+    onManageAreasClicked: () -> Unit = {}
 ) {
     val workers by viewModel.workers.collectAsState()
     val syncState by viewModel.syncState.collectAsState()
+    val userRole by viewModel.userRole.collectAsState()
+    val isAdmin = userRole == UserRole.Admin
     
     LaunchedEffect(syncState) {
         if (syncState is com.madaba.supervisorapp.ui.viewmodels.SyncState.Success) {
@@ -69,6 +76,11 @@ fun SupervisorMainScreen(
                 actions = {
                     IconButton(onClick = onOfflineQueueClicked) {
                         Icon(Icons.Default.DateRange, contentDescription = "Offline Queue")
+                    }
+                    if (isAdmin) {
+                        IconButton(onClick = onManageWorkersClicked) {
+                            Icon(Icons.Default.Settings, contentDescription = "Manage Workers")
+                        }
                     }
                     IconButton(
                         onClick = {

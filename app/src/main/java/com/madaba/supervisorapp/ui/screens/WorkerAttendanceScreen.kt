@@ -63,8 +63,9 @@ fun WorkerAttendanceScreen(
     var showAddForm by remember { mutableStateOf(false) }
     var selectedDate by remember { mutableStateOf(System.currentTimeMillis()) }
     var status by remember { mutableStateOf("Present") }
-    var hoursWorked by remember { mutableStateOf("8") }
-    var overtimeHours by remember { mutableStateOf("0") }
+    var regularDays by remember { mutableStateOf("1") }
+    var overtimeDays by remember { mutableStateOf("0") }
+    var overtimeType by remember { mutableStateOf("normal") }
     var notes by remember { mutableStateOf("") }
 
     LaunchedEffect(workerId) {
@@ -75,8 +76,9 @@ fun WorkerAttendanceScreen(
         if (saveResult is SaveAttendanceResult.Success) {
             showAddForm = false
             status = "Present"
-            hoursWorked = "8"
-            overtimeHours = "0"
+            regularDays = "1"
+            overtimeDays = "0"
+            overtimeType = "normal"
             notes = ""
             viewModel.resetSaveResult()
         }
@@ -143,10 +145,12 @@ fun WorkerAttendanceScreen(
                             onDateChange = { selectedDate = it },
                             status = status,
                             onStatusChange = { status = it },
-                            hoursWorked = hoursWorked,
-                            onHoursWorkedChange = { hoursWorked = it },
-                            overtimeHours = overtimeHours,
-                            onOvertimeHoursChange = { overtimeHours = it },
+                            regularDays = regularDays,
+                            onRegularDaysChange = { regularDays = it },
+                            overtimeDays = overtimeDays,
+                            onOvertimeDaysChange = { overtimeDays = it },
+                            overtimeType = overtimeType,
+                            onOvertimeTypeChange = { overtimeType = it },
                             notes = notes,
                             onNotesChange = { notes = it },
                             onSave = {
@@ -154,8 +158,9 @@ fun WorkerAttendanceScreen(
                                     workerId = workerId,
                                     date = selectedDate,
                                     status = status,
-                                    hoursWorked = hoursWorked.toIntOrNull() ?: 0,
-                                    overtimeHours = overtimeHours.toIntOrNull() ?: 0,
+                                    regularDays = regularDays.toIntOrNull() ?: 0,
+                                    overtimeDays = overtimeDays.toIntOrNull() ?: 0,
+                                    overtimeType = overtimeType,
                                     notes = notes.ifBlank { null },
                                     photoUrl = null
                                 )
@@ -220,10 +225,12 @@ fun AddAttendanceForm(
     onDateChange: (Long) -> Unit,
     status: String,
     onStatusChange: (String) -> Unit,
-    hoursWorked: String,
-    onHoursWorkedChange: (String) -> Unit,
-    overtimeHours: String,
-    onOvertimeHoursChange: (String) -> Unit,
+    regularDays: String,
+    onRegularDaysChange: (String) -> Unit,
+    overtimeDays: String,
+    onOvertimeDaysChange: (String) -> Unit,
+    overtimeType: String,
+    onOvertimeTypeChange: (String) -> Unit,
     notes: String,
     onNotesChange: (String) -> Unit,
     onSave: () -> Unit,
@@ -274,17 +281,55 @@ fun AddAttendanceForm(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             OutlinedTextField(
-                value = hoursWorked,
-                onValueChange = onHoursWorkedChange,
-                label = { Text("Hours Worked") },
+                value = regularDays,
+                onValueChange = onRegularDaysChange,
+                label = { Text("أيام العمل العادية") },
                 modifier = Modifier.weight(1f)
             )
 
             OutlinedTextField(
-                value = overtimeHours,
-                onValueChange = onOvertimeHoursChange,
-                label = { Text("Overtime Hours") },
+                value = overtimeDays,
+                onValueChange = onOvertimeDaysChange,
+                label = { Text("أيام الإضافي") },
                 modifier = Modifier.weight(1f)
+            )
+        }
+
+        // Overtime Type Selection
+        Text(
+            text = "نوع الإضافي",
+            style = MaterialTheme.typography.labelMedium
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            androidx.compose.material3.RadioButton(
+                selected = overtimeType == "normal",
+                onClick = { onOvertimeTypeChange("normal") }
+            )
+            Text(
+                text = "عادي (نصف يوم)",
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onOvertimeTypeChange("normal") },
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            androidx.compose.material3.RadioButton(
+                selected = overtimeType == "holiday",
+                onClick = { onOvertimeTypeChange("holiday") }
+            )
+            Text(
+                text = "عطلة/جمعة (يوم كامل)",
+                modifier = Modifier
+                    .weight(1f)
+                    .clickable { onOvertimeTypeChange("holiday") },
+                style = MaterialTheme.typography.bodyMedium
             )
         }
 
@@ -371,14 +416,20 @@ fun AttendanceRecordItem(attendance: AttendanceEntity) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Hours: ${attendance.hoursWorked}",
+                    text = "أيام عادية: ${attendance.regularDays}",
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = "Overtime: ${attendance.overtimeHours}",
+                    text = "أيام إضافي: ${attendance.overtimeDays}",
                     style = MaterialTheme.typography.bodySmall
                 )
             }
+
+            Text(
+                text = "نوع الإضافي: ${if (attendance.overtimeType == "holiday") "عطلة/جمعة (يوم كامل)" else "عادي (نصف يوم)"}",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary
+            )
 
             if (!attendance.notes.isNullOrBlank()) {
                 Text(

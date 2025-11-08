@@ -11,7 +11,8 @@ data class WorkerEntity(
     val id: String,
     val name: String,
     val role: String,
-    val supervisorId: String
+    val supervisorId: String,
+    val areaId: String = ""
 )
 
 fun WorkerEntity.toModel(): Worker {
@@ -19,7 +20,8 @@ fun WorkerEntity.toModel(): Worker {
         id = id,
         name = name,
         role = role,
-        supervisorId = supervisorId
+        supervisorId = supervisorId,
+        areaId = areaId
     )
 }
 
@@ -28,6 +30,7 @@ fun Worker.toEntity(): WorkerEntity {
         id = id,
         name = name,
         role = role,
-        supervisorId = supervisorId
+        supervisorId = supervisorId,
+        areaId = areaId
     )
 }

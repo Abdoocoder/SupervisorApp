@@ -46,7 +46,7 @@ class WorkerAttendanceViewModel @Inject constructor(
             _uiState.value = WorkerAttendanceUiState.Loading
             try {
                 // Get worker from first emission
-                val workers = repository.workers.first()
+                val workers = repository.getWorkersFlow().first()
                 val worker = workers.find { it.id == workerId }
                 
                 // Collect attendances for this worker
@@ -63,8 +63,9 @@ class WorkerAttendanceViewModel @Inject constructor(
         workerId: String,
         date: Long,
         status: String,
-        hoursWorked: Int,
-        overtimeHours: Int,
+        regularDays: Int,
+        overtimeDays: Int,
+        overtimeType: String,
         notes: String?,
         photoUrl: String?
     ) {
@@ -75,8 +76,9 @@ class WorkerAttendanceViewModel @Inject constructor(
                 workerId = workerId,
                 date = date,
                 status = status,
-                hoursWorked = hoursWorked,
-                overtimeHours = overtimeHours,
+                regularDays = regularDays,
+                overtimeDays = overtimeDays,
+                overtimeType = overtimeType,
                 notes = notes,
                 photoUrl = photoUrl,
                 synced = false,

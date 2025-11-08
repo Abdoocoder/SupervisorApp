@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.madaba.supervisorapp.ui.screens.LoginScreen
+import com.madaba.supervisorapp.ui.screens.ManageWorkersScreen
 import com.madaba.supervisorapp.ui.screens.OfflineQueueScreen
 import com.madaba.supervisorapp.ui.screens.SupervisorMainScreen
 import com.madaba.supervisorapp.ui.screens.WorkerAttendanceScreen
@@ -47,7 +48,15 @@ class MainActivity : ComponentActivity() {
                                 onSyncClicked = { /* Sync handled by ViewModel */ },
                                 onOfflineQueueClicked = {
                                     navController.navigate("offline_queue")
+                                },
+                                onManageWorkersClicked = {
+                                    navController.navigate("manage_workers")
                                 }
+                            )
+                        }
+                        composable("manage_workers") {
+                            ManageWorkersScreen(
+                                onNavigateBack = { navController.popBackStack() }
                             )
                         }
                         composable(
