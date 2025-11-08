@@ -38,10 +38,30 @@ object AppModule {
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         val migration1to2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                // Add areaId column to workers table
+                // Drop existing attendance table
+                database.execSQL("DROP TABLE IF EXISTS attendance")
+                
+                // Create new attendance table with updated schema
+                database.execSQL("""
+                    CREATE TABLE attendance (
+                        localId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        workerId TEXT NOT NULL,
+                        date INTEGER NOT NULL,
+                        status TEXT NOT NULL,
+                        regularDays INTEGER NOT NULL DEFAULT 0,
+                        overtimeDays INTEGER NOT NULL DEFAULT 0,
+                        overtimeType TEXT NOT NULL DEFAULT 'normal',
+                        notes TEXT,
+                        photoUrl TEXT,
+                        synced INTEGER NOT NULL DEFAULT 0,
+                        createdAt INTEGER NOT NULL DEFAULT 0,
+                        updatedAt INTEGER NOT NULL DEFAULT 0,
+                        editedBy TEXT NOT NULL DEFAULT ''
+                    )
+                """)
+                
+                // Add areaId to workers table
                 database.execSQL("ALTER TABLE workers ADD COLUMN areaId TEXT NOT NULL DEFAULT ''")
-                // Note: AttendanceEntity changes (hoursWorked -> regularDays, etc.) 
-                // will be handled by Room's fallback migration (drop and recreate)
             }
         }
         
@@ -51,7 +71,6 @@ object AppModule {
             "supervisor_app_db"
         )
         .addMigrations(migration1to2)
-        .fallbackToDestructiveMigration() // For development - remove in production
         .build()
     }
 
