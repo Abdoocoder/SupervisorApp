@@ -10,7 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,18 +44,14 @@ class WorkerAttendanceViewModel @Inject constructor(
     fun loadWorkerAndAttendances(workerId: String) {
         viewModelScope.launch {
             _uiState.value = WorkerAttendanceUiState.Loading
-        }
-        
-        // Load worker in separate coroutine
-        viewModelScope.launch {
             try {
-                repository.workers.collectLatest { workers ->
-                    val worker = workers.find { it.id == workerId }
-                    
-                    // Load attendances for this worker
-                    repository.getAttendanceForWorker(workerId).collectLatest { attendances ->
-                        _uiState.value = WorkerAttendanceUiState.Success(worker, attendances)
-                    }
+                // Get worker from first emission
+                val workers = repository.workers.first()
+                val worker = workers.find { it.id == workerId }
+                
+                // Collect attendances for this worker
+                repository.getAttendanceForWorker(workerId).collect { attendances ->
+                    _uiState.value = WorkerAttendanceUiState.Success(worker, attendances)
                 }
             } catch (e: Exception) {
                 _uiState.value = WorkerAttendanceUiState.Error(e.message ?: "Unknown error")
