@@ -98,7 +98,7 @@ fun ManageWorkersScreen(
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
-                            text = uiState.message,
+                            text = (uiState as ManageWorkersUiState.Error).message,
                             color = MaterialTheme.colorScheme.error
                         )
                         Spacer(modifier = Modifier.height(16.dp))
@@ -207,10 +207,10 @@ fun WorkerEditDialog(
     onDismiss: () -> Unit,
     onSave: (Worker) -> Unit
 ) {
-    var name by remember { mutableStateOf(worker?.name ?: "") }
-    var role by remember { mutableStateOf(worker?.role ?: "") }
-    var selectedSupervisorId by remember { mutableStateOf(worker?.supervisorId ?: "") }
-    var selectedAreaId by remember { mutableStateOf(worker?.areaId ?: "") }
+    var name by remember(worker) { mutableStateOf(worker?.name ?: "") }
+    var role by remember(worker) { mutableStateOf(worker?.role ?: "") }
+    var selectedSupervisorId by remember(worker) { mutableStateOf(worker?.supervisorId ?: "") }
+    var selectedAreaId by remember(worker) { mutableStateOf(worker?.areaId ?: "") }
 
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,

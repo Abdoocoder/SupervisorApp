@@ -155,7 +155,7 @@ fun UnsyncedAttendanceItem(attendance: AttendanceEntity) {
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(
-                text = "Status: ${attendance.status} | Hours: ${attendance.hoursWorked} | Overtime: ${attendance.overtimeHours}",
+                text = "Status: ${attendance.status} | Regular Days: ${attendance.regularDays} | Overtime Days: ${attendance.overtimeDays} (${attendance.overtimeType})",
                 style = MaterialTheme.typography.bodySmall
             )
             if (!attendance.notes.isNullOrBlank()) {
