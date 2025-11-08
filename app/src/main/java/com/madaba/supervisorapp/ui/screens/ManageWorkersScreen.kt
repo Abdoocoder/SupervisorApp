@@ -54,8 +54,8 @@ fun ManageWorkersScreen(
     val supervisors by viewModel.supervisors.collectAsState()
     val areas by viewModel.areas.collectAsState()
 
-    var showAddDialog by remember { mutableStateOf(false) }
-    var editingWorker by remember { mutableStateOf<Worker?>(null) }
+    var showAddDialog by remember(key1 = Unit) { mutableStateOf(false) }
+    var editingWorker by remember(key1 = Unit) { mutableStateOf<Worker?>(null) }
 
     LaunchedEffect(Unit) {
         viewModel.loadData()
@@ -207,10 +207,10 @@ fun WorkerEditDialog(
     onDismiss: () -> Unit,
     onSave: (Worker) -> Unit
 ) {
-    var name by remember(worker) { mutableStateOf(worker?.name ?: "") }
-    var role by remember(worker) { mutableStateOf(worker?.role ?: "") }
-    var selectedSupervisorId by remember(worker) { mutableStateOf(worker?.supervisorId ?: "") }
-    var selectedAreaId by remember(worker) { mutableStateOf(worker?.areaId ?: "") }
+    var name by remember(key1 = worker) { mutableStateOf(worker?.name ?: "") }
+    var role by remember(key1 = worker) { mutableStateOf(worker?.role ?: "") }
+    var selectedSupervisorId by remember(key1 = worker) { mutableStateOf(worker?.supervisorId ?: "") }
+    var selectedAreaId by remember(key1 = worker) { mutableStateOf(worker?.areaId ?: "") }
 
     androidx.compose.material3.AlertDialog(
         onDismissRequest = onDismiss,
