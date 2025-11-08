@@ -20,8 +20,8 @@ class SupervisorApp : Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
-    override fun getWorkManagerConfiguration(): Configuration {
-        return Configuration.Builder()
+    override val workManagerConfiguration: Configuration by lazy {
+        Configuration.Builder()
             .setWorkerFactory(workerFactory)
             .build()
     }
