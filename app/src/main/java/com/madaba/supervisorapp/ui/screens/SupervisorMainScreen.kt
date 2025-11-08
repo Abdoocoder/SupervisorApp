@@ -79,7 +79,7 @@ fun SupervisorMainScreen(
                     ) {
                         if (syncState is com.madaba.supervisorapp.ui.viewmodels.SyncState.Loading) {
                             androidx.compose.material3.CircularProgressIndicator(
-                                modifier = androidx.compose.ui.Modifier.size(24.dp)
+                                modifier = Modifier.size(24.dp)
                             )
                         } else {
                             Icon(Icons.Default.Refresh, contentDescription = "Sync Now")
