@@ -19,11 +19,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.size
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.madaba.supervisorapp.data.models.Worker
 import com.madaba.supervisorapp.ui.viewmodels.SupervisorMainViewModel
@@ -50,6 +52,15 @@ fun SupervisorMainScreen(
     onOfflineQueueClicked: () -> Unit
 ) {
     val workers by viewModel.workers.collectAsState()
+    val syncState by viewModel.syncState.collectAsState()
+    
+    LaunchedEffect(syncState) {
+        if (syncState is com.madaba.supervisorapp.ui.viewmodels.SyncState.Success) {
+            // Reset state after showing success
+            kotlinx.coroutines.delay(2000)
+            viewModel.resetSyncState()
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -59,8 +70,20 @@ fun SupervisorMainScreen(
                     IconButton(onClick = onOfflineQueueClicked) {
                         Icon(Icons.Default.DateRange, contentDescription = "Offline Queue")
                     }
-                    IconButton(onClick = onSyncClicked) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Sync Now")
+                    IconButton(
+                        onClick = {
+                            viewModel.syncAll()
+                            onSyncClicked()
+                        },
+                        enabled = syncState !is com.madaba.supervisorapp.ui.viewmodels.SyncState.Loading
+                    ) {
+                        if (syncState is com.madaba.supervisorapp.ui.viewmodels.SyncState.Loading) {
+                            androidx.compose.material3.CircularProgressIndicator(
+                                modifier = androidx.compose.ui.Modifier.size(24.dp)
+                            )
+                        } else {
+                            Icon(Icons.Default.Refresh, contentDescription = "Sync Now")
+                        }
                     }
                 }
             )

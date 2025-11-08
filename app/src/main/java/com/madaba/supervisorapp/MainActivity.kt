@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                                 onWorkerClicked = { workerId ->
                                     navController.navigate("attendance/$workerId")
                                 },
-                                onSyncClicked = { /* TODO: Implement manual sync */ },
+                                onSyncClicked = { /* Sync handled by ViewModel */ },
                                 onOfflineQueueClicked = {
                                     navController.navigate("offline_queue")
                                 }

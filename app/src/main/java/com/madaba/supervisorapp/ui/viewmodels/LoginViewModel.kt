@@ -4,6 +4,7 @@ package com.madaba.supervisorapp.ui.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.madaba.supervisorapp.data.sync.SyncManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +21,8 @@ sealed class LoginUiState {
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val auth: FirebaseAuth
+    private val auth: FirebaseAuth,
+    private val syncManager: SyncManager
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
@@ -35,6 +37,8 @@ class LoginViewModel @Inject constructor(
             _uiState.value = LoginUiState.Loading
             try {
                 auth.signInWithEmailAndPassword(email, password).await()
+                // Schedule periodic sync after successful login
+                syncManager.schedulePeriodicSync()
                 _uiState.value = LoginUiState.Success
             } catch (e: Exception) {
                 _uiState.value = LoginUiState.Error(e.message ?: "An unknown error occurred.")

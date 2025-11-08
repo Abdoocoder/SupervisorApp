@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface AttendanceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAttendance(attendance: AttendanceEntity)
+    suspend fun insertAttendance(attendance: AttendanceEntity): Long
 
     @Query("SELECT * FROM attendance WHERE synced = 0")
     fun getUnsyncedAttendancesFlow(): Flow<List<AttendanceEntity>>
@@ -23,4 +23,7 @@ interface AttendanceDao {
 
     @Query("SELECT * FROM attendance")
     fun getAllAttendanceRecords(): Flow<List<AttendanceEntity>>
+
+    @Query("SELECT * FROM attendance WHERE workerId = :workerId ORDER BY date DESC")
+    fun getAttendanceForWorker(workerId: String): Flow<List<AttendanceEntity>>
 }

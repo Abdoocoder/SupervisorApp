@@ -9,6 +9,7 @@ import com.madaba.supervisorapp.data.source.local.AppDatabase
 import com.madaba.supervisorapp.data.source.local.AttendanceDao
 import com.madaba.supervisorapp.data.source.local.WorkerDao
 import com.madaba.supervisorapp.data.source.repository.AttendanceRepository
+import com.madaba.supervisorapp.data.sync.SyncManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,5 +56,11 @@ object AppModule {
         attendanceDao: AttendanceDao
     ): AttendanceRepository {
         return AttendanceRepository(firestore, auth, workerDao, attendanceDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSyncManager(@ApplicationContext context: Context): SyncManager {
+        return SyncManager(context)
     }
 }
