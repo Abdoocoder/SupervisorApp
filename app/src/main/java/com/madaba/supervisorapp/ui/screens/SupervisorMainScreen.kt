@@ -24,8 +24,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.size
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.size
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.madaba.supervisorapp.data.models.Worker
 import com.madaba.supervisorapp.ui.viewmodels.SupervisorMainViewModel
