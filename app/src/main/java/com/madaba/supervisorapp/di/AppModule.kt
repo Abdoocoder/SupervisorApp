@@ -58,9 +58,4 @@ object AppModule {
         return AttendanceRepository(firestore, auth, workerDao, attendanceDao)
     }
 
-    @Provides
-    @Singleton
-    fun provideSyncManager(@ApplicationContext context: Context): SyncManager {
-        return SyncManager(context)
-    }
 }
