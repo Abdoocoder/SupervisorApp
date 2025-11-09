@@ -54,8 +54,8 @@ fun ManageWorkersScreen(
     val supervisors by viewModel.supervisors.collectAsState()
     val areas by viewModel.areas.collectAsState()
 
-    var showAddDialog by remember(key1 = Unit) { mutableStateOf(false) }
-    var editingWorker by remember(key1 = Unit) { mutableStateOf<Worker?>(null) }
+    var showAddDialog by remember { mutableStateOf(false) }
+    var editingWorker by remember { mutableStateOf<Worker?>(null) }
 
     LaunchedEffect(Unit) {
         viewModel.loadData()
